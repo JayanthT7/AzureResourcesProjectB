@@ -1,0 +1,2 @@
+# AzureResourcesProjectB
+Azure resources projects 
