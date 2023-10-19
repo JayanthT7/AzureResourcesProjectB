@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contact-app-deployment
+  labels:
+    app: contactapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contactapp
+# This applies to pod
+  template:
+    metadata:
+      labels:
+        app: contactapp
+    spec:
+      containers:
+      - name: contactapp
+        image: doredocker/contactapp
+        ports:
+        - containerPort: 80
+      # imagePullSecrets:
+      #   - name: my-registry-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ng-app-service
+spec:
+  # type: LoadBalancer
+  selector:
+    app: contactapp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

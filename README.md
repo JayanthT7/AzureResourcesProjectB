@@ -1,2 +1,3 @@
-# AzureResourcesProjectB
-Azure resources projects 
+# JayanthAzAssignment
+
+assignment from Jayanth Bosch

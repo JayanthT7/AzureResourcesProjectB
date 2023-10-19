@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: appingress
+spec:
+  ingressClassName: azure-application-gateway
+  rules:  
+  - http:
+      paths:
+      - path: /api/contact
+        pathType: Exact
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 80
+  - http:
+      paths:
+      - path: /
+        backend:
+          service:
+            name: ng-app-service
+            port: 
+              number: 80
+        pathType: Exact
+  

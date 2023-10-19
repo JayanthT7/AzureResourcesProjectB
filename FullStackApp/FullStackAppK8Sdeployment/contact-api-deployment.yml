@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contact-api-deployment
+  labels:
+    app: contactapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contactapi
+# This applies to pod
+  template:
+    metadata:
+      labels:
+        app: contactapi
+    spec:
+      containers:
+      - name: contactapi
+        image: doredocker/contactapi
+        ports:
+        - containerPort: 80
+        env:
+        - name: SQL_DB
+          value: "Server=sql-service;Initial Catalog=ProductsDB;User ID=sa;Password=pass@123"
+      # imagePullSecrets:
+      #   - name: my-registry-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+spec:
+  # type: LoadBalancer
+  selector:
+    app: contactapi
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
